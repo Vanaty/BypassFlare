@@ -30,7 +30,7 @@ RUN dpkg -i /libgl1-mesa-dri.deb \
     # Install dependencies
     && apt-get update \
     && apt-get install -y --no-install-recommends chromium chromium-common xvfb dumb-init \
-        procps curl vim xauth \
+        procps curl vim xauth build-essential python3-dev \
     # Remove temporary files and hardware decoding libraries
     && rm -rf /var/lib/apt/lists/* \
     && rm -f /usr/lib/x86_64-linux-gnu/libmfxhw* \
