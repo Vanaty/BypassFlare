@@ -368,7 +368,7 @@ def _evil_logic(req: V1RequestBase, driver: ChromiumPage, method: str) -> Challe
                 # then wait until all the selectors disappear
                 for selector in CHALLENGE_SELECTORS:
                     logging.debug("Waiting for selector (attempt " + str(attempt) + "): " + selector)
-                    driver.wait.ele_deleted((By.CSS_SELECTOR, selector), SHORT_TIMEOUT, True)
+                    driver.wait.ele_deleted((By.CSS_SELECTOR, selector), timeout=SHORT_TIMEOUT, raise_err=True)
 
                 # all elements not found
                 break

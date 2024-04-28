@@ -161,16 +161,12 @@ def get_webdriver(proxy: dict = None) -> ChromiumPage:
             options.headless(True)
         else:
             start_xvfb_display()
-    # For normal headless mode:
-    # options.add_argument('--headless')
 
     options.set_argument("--auto-open-devtools-for-tabs")
 
     # detect chrome path
     options.set_paths(get_chrome_exe_path())
 
-    # downloads and patches the chromedriver
-    # if we don't set driver_executable_path it downloads, patches, and deletes the driver each time
     try:
         driver = ChromiumPage(options)
     except Exception as e:
@@ -179,14 +175,6 @@ def get_webdriver(proxy: dict = None) -> ChromiumPage:
     # clean up proxy extension directory
     if proxy_extension_dir is not None:
         shutil.rmtree(proxy_extension_dir)
-
-    # selenium vanilla
-    # options = webdriver.ChromeOptions()
-    # options.add_argument('--no-sandbox')
-    # options.add_argument('--window-size=1920,1080')
-    # options.add_argument('--disable-setuid-sandbox')
-    # options.add_argument('--disable-dev-shm-usage')
-    # driver = webdriver.Chrome(options=options)
 
     return driver
 
