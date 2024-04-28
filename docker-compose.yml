@@ -2,7 +2,6 @@
 version: "2.1"
 services:
   flaresolverr:
-    # DockerHub mirror flaresolverr/flaresolverr:latest
     image: vanaty/bypassflare
     container_name: bypassflare
     environment:
