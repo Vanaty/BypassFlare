@@ -58,4 +58,8 @@ EXPOSE 8192
 # dumb-init avoids zombie chromium processes
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
 
-CMD ["/usr/local/bin/python", "-u", "/app/flaresolverr.py"]
+CMD ["/usr/local/bin/python", "-u", "/app/main.py"]
+
+# Local build
+# docker build -t vanaty/bypassflare .
+# docker run -p 8191:8191 vanaty/bypassflare
