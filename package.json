@@ -1,0 +1,7 @@
+{
+  "name": "bypassflare",
+  "version": "2024.04",
+  "description": "Proxy server to bypass Cloudflare protection",
+  "author": "Termux Kaly (Vanaty / eritiavina31@gmail.com)",
+  "license": "MIT"
+}
