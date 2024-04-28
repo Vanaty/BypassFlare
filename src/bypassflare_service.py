@@ -102,7 +102,7 @@ def controller_v1_endpoint(req: V1RequestBase) -> V1ResponseBase:
 
     res.startTimestamp = start_ts
     res.endTimestamp = int(time.time() * 1000)
-    res.version = utils.get_flaresolverr_version()
+    res.version = utils.get_bypassflare_version()
     logging.debug(f"Response => POST /v1 body: {utils.object_to_dict(res)}")
     logging.info(f"Response in {(res.endTimestamp - res.startTimestamp) / 1000} s")
     return res
