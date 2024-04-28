@@ -251,31 +251,14 @@ def _resolve_challenge(req: V1RequestBase, method: str) -> ChallengeResolutionT:
 def click_verify(driver: ChromiumPage):
     try:
         logging.debug("Try to find the Cloudflare verify checkbox...")
-        iframe = driver.ele("xpath://iframe[starts-with(@id, 'cf-chl-widget-')]",timeout=0.1)
-        iframe = driver.get_frame(iframe)
-        checkbox = driver.ele('xpath://*[@id="challenge-stage"]/div/label/input')
+        iframe = driver.get_frame('@src^https://challenges.cloudflare.com/cdn-cgi')
+        checkbox = iframe('.mark')
+        time.sleep(3)
         if checkbox:
-            actions = Actions(iframe)
-            actions.move_to(ele_or_loc=checkbox, offset_x=5, offset_y=7)
-            actions.click(checkbox)
+            checkbox.click()
             logging.debug("Cloudflare verify checkbox found and clicked!")
     except Exception:
         logging.debug("Cloudflare verify checkbox not found on the page.")
-    finally:
-        pass
-        # driver.switch_to.default_content()
-
-    try:
-        logging.debug("Try to find the Cloudflare 'Verify you are human' button...")
-        button = driver.ele((By.XPATH, "//input[@type='button' and @value='Verify you are human']"),timeout=0.1)
-        if button:
-            actions = Actions(driver)
-            actions.move_to(ele_or_loc=button, offset_x=5, offset_y=7)
-            actions.click(button)
-            logging.debug("The Cloudflare 'Verify you are human' button found and clicked!")
-    except Exception:
-        logging.debug("The Cloudflare 'Verify you are human' button not found on the page.")
-
     time.sleep(2)
 
 
