@@ -253,13 +253,13 @@ def click_verify(driver: ChromiumPage):
         logging.debug("Try to find the Cloudflare verify checkbox...")
         iframe = driver.get_frame('@src^https://challenges.cloudflare.com/cdn-cgi')
         checkbox = iframe('.mark')
-        time.sleep(3)
+        time.sleep(5)
         if checkbox:
             checkbox.click()
             logging.debug("Cloudflare verify checkbox found and clicked!")
     except Exception:
         logging.debug("Cloudflare verify checkbox not found on the page.")
-    time.sleep(2)
+    time.sleep(5)
 
 
 def get_correct_window(driver: ChromiumPage) -> ChromiumPage:

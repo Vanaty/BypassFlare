@@ -120,22 +120,6 @@ def get_webdriver(proxy: dict = None) -> ChromiumPage:
     options = ChromiumOptions()
     options.auto_port()
     options.set_argument('--no-sandbox')
-    options.set_argument('--window-size=1920,1080')
-    # todo: this param shows a warning in chrome head-full
-    options.set_argument('--disable-setuid-sandbox')
-    options.set_argument('--disable-dev-shm-usage')
-    # this option removes the zygote sandbox (it seems that the resolution is a bit faster)
-    options.set_argument('--no-zygote')
-    # attempt to fix Docker ARM32 build
-    options.set_argument('--disable-gpu-sandbox')
-    options.set_argument('--disable-software-rasterizer')
-    options.set_argument('--ignore-certificate-errors')
-    options.set_argument('--ignore-ssl-errors')
-    # fix GL errors in ASUSTOR NAS
-    # https://github.com/FlareSolverr/FlareSolverr/issues/782
-    # https://github.com/microsoft/vscode/issues/127800#issuecomment-873342069
-    # https://peter.sh/experiments/chromium-command-line-switches/#use-gl
-    options.set_argument('--use-gl=swiftshader')
 
     language = os.environ.get('LANG', None)
     if language is not None:
