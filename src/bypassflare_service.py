@@ -113,9 +113,9 @@ def _controller_v1_handler(req: V1RequestBase) -> V1ResponseBase:
     if req.cmd is None:
         raise Exception("Request parameter 'cmd' is mandatory.")
     if req.headers is not None:
-        logging.warning("Request parameter 'headers' was removed in FlareSolverr v2.")
+        logging.warning("Request parameter 'headers' was removed in BypassFlare v2.")
     if req.userAgent is not None:
-        logging.warning("Request parameter 'userAgent' was removed in FlareSolverr v2.")
+        logging.warning("Request parameter 'userAgent' was removed in BypassFlare v2.")
 
     # set default values
     if req.maxTimeout is None or req.maxTimeout < 1:
@@ -146,9 +146,9 @@ def _cmd_request_get(req: V1RequestBase) -> V1ResponseBase:
     if req.postData is not None:
         raise Exception("Cannot use 'postBody' when sending a GET request.")
     if req.returnRawHtml is not None:
-        logging.warning("Request parameter 'returnRawHtml' was removed in FlareSolverr v2.")
+        logging.warning("Request parameter 'returnRawHtml' was removed in BypassFlare v2.")
     if req.download is not None:
-        logging.warning("Request parameter 'download' was removed in FlareSolverr v2.")
+        logging.warning("Request parameter 'download' was removed in BypassFlare v2.")
 
     challenge_res = _resolve_challenge(req, 'GET')
     res = V1ResponseBase({})
@@ -163,9 +163,9 @@ def _cmd_request_post(req: V1RequestBase) -> V1ResponseBase:
     if req.postData is None:
         raise Exception("Request parameter 'postData' is mandatory in 'request.post' command.")
     if req.returnRawHtml is not None:
-        logging.warning("Request parameter 'returnRawHtml' was removed in FlareSolverr v2.")
+        logging.warning("Request parameter 'returnRawHtml' was removed in BypassFlare v2.")
     if req.download is not None:
-        logging.warning("Request parameter 'download' was removed in FlareSolverr v2.")
+        logging.warning("Request parameter 'download' was removed in BypassFlare v2.")
 
     challenge_res = _resolve_challenge(req, 'POST')
     res = V1ResponseBase({})
@@ -259,7 +259,13 @@ def click_verify(driver: ChromiumPage):
             logging.debug("Cloudflare verify checkbox found and clicked!")
     except Exception:
         logging.debug("Cloudflare verify checkbox not found on the page.")
-    time.sleep(5)
+    if driver.wait.ele_displayed('xpath://div/iframe',timeout=1.5):
+        time.sleep(1.5)
+        driver('xpath://div/iframe').ele('xpath://*[@id="challenge-stage"]/div/label/input', timeout=2.5).click()
+            # The location of the button may vary time to time. I sometimes check the button's location and update the code.
+    elif driver.ele('xpath://input[@value="Verify you are human"]'):
+        logging.debug('Verify you are human found and clicked')
+        driver.ele('xpath://input[@value="Verify you are human"]', timeout=2.5).click()
 
 
 def get_correct_window(driver: ChromiumPage) -> ChromiumPage:
